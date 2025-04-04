@@ -3,83 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Strona Testowa</title>
+    <title>Jak mnie widzi AI?</title>
     <style>
-        /* Resetowanie marginesów i paddingu */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #6d28d9;
+            --primary-dark: #5b21b6;
+            --secondary: #ec4899;
+            --light: #f3f4f6;
+            --dark: #1f2937;
         }
-
-        /* Ustawienia ogólne */
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e2e8f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark);
         }
-
-        /* Stylowanie kontenera */
+        
         .container {
+            width: 90%;
             max-width: 800px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
             text-align: center;
         }
-
+        
         h1 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
             font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
         }
-
-        p {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-            margin-bottom: 30px;
+        
+        .subtitle {
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
         }
-
-        footer {
+        
+        .input-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-weight: 600;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
             font-size: 1rem;
-            color: #bdc3c7;
         }
-
-        footer a {
-            color: #3498db;
-            text-decoration: none;
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
         }
-
-        footer a:hover {
-            text-decoration: underline;
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-
-        /* Ustawienie responsywne */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .result-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-content {
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .category {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 1rem auto;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            margin: 1rem 0;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        footer {
+            margin-top: auto;
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>Strona Testowa</h1>
-        <p>Ta strona została wygenerowana przez sztuczną inteligencję (AI) w celach testowych.</p>
-        <footer>
-            <p>Autor: <strong>Marcin Burda</strong></p>
-        </footer>
+        <h1>Jak mnie widzi AI?</h1>
+        <p class="subtitle">Sprawdź, jak sztuczna inteligencja postrzega Ciebie!</p>
+        
+        <div class="input-section">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('name')">Imię/Nick</div>
+                <div class="tab" onclick="switchTab('photo')">Zdjęcie</div>
+            </div>
+            
+            <div id="name-tab" class="tab-content active">
+                <input type="text" id="user-name" placeholder="Wpisz swoje imię lub nick...">
+                <button onclick="generateDescription('name')">Analizuj mnie!</button>
+            </div>
+            
+            <div id="photo-tab" class="tab-content">
+                <input type="file" id="user-photo" accept="image/*">
+                <img id="image-preview" class="image-preview">
+                <button onclick="generateDescription('photo')">Analizuj mnie!</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>AI tworzy Twój unikalny opis...</p>
+            </div>
+        </div>
+        
+        <div class="result-section" id="result-section">
+            <div class="result-title">Oto jak widzi Cię AI:</div>
+            <div class="result-content" id="result-content"></div>
+        </div>
     </div>
-
+    
+    <footer>
+        Aplikacja "Jak mnie widzi AI?" | Stworzona dla zabawy | 2025
+    </footer>
+    
+    <script>
+        // Dane do generowania opisów
+        const personalities = [
+            "Urodzony optymista z misją rozśmieszania każdego spotkanego człowieka",
+            "Tajemniczy intrygant, który zawsze wie o jeden mem więcej niż inni",
+            "Spokojny analityk z niespodziewanym talentem do tańca macareny",
+            "Energetyczny entuzjasta życia z alergią na poniedziałki",
+            "Romantyczna dusza ukryta pod maską sarkastycznego poczucia humoru",
+            "Urodzony przywódca z nieodpartą potrzebą głaskania każdego spotkanego kota",
+            "Kreatywny marzyciel, który w tajemnicy kolekcjonuje śmieszne skarpetki",
+            "Logiczny strateg z nieoczekiwaną słabością do ckliwych komedii romantycznych",
+            "Empatyczny słuchacz, który potajemnie marzy o założeniu zespołu rockowego",
+            "Ambitny perfekcjonista, który tańczy, kiedy myśli, że nikt nie widzi"
+        ];
+        
+        const fictionalWorlds = [
+            "Hogwart (zdecydowanie Hufflepuff)",
+            "Gra o Tron (przeżyłbyś/przeżyłabyś wszystkie sezony!)",
+            "Władca Pierścieni (tajny doradca Gandalfa)",
+            "Star Wars (mógłbyś/mogłabyś nauczyć Yodę kilku sztuczek)",
+            "Marvel Universe (na kawę zaprasza Cię sam Tony Stark)",
+            "Avatar (Twój bioluminescencyjny wzór to hit na Pandorze)",
+            "Wiedźmin (Geralt pyta Cię o rady sercowe)",
+            "Pokemon (Twój starter to Psyduck - i jakoś to działa!)",
+            "Matrix (Neo dzwoni do Ciebie po porady)",
+            "DC Universe (Batman podkrada Twoje teksty na podryw)"
+        ];
+        
+        const funFacts = [
+            "Z analizy Twoich wibracji wynika, że w poprzednim życiu byłeś/byłaś jednorożcem",
+            "Moje algorytmy wskazują, że masz 87% szans na wygranie teleturnieju o niczym",
+            "Gdybyś był/była pizzą, byłbyś/byłabyś pizza hawajska - kontrowersyjna, ale lubiana",
+            "W alternatywnym wymiarze jesteś gwiazdą rocka z 50,000 fanów na Marsie",
+            "Moje obliczenia sugerują, że Twój śmiech może naprawiać zepsute WiFi",
+            "Twoja aura wskazuje, że potrafisz rozmawiać z roślinami (one po prostu nie odpowiadają)",
+            "Gdybyś był/była superbohaterem, Twoją supermocą byłoby znajdowanie dobrych memów na każdą okazję",
+            "W symulacji, którą przeprowadziłem, zostałeś/zostałaś prezydentem Księżyca w 2040 roku",
+            "Moje sensory wykrywają, że potrafisz zasnąć w każdej pozycji - to rzadka nadludzka umiejętność",
+            "Mam dane wskazujące, że Twój taniec pod prysznicem jest na poziomie olimpijskim"
+        ];
+        
+        // Przełączanie między zakładkami
+        function switchTab(tabName) {
+            // Ukryj wszystkie zakładki i dezaktywuj przyciski
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Aktywuj wybraną zakładkę
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.querySelector(`.tab:nth-child(${tabName === 'name' ? 1 : 2})`).classList.add('active');
+        }
+        
+        // Podgląd wybranego zdjęcia
+        const photoInput = document.getElementById('user-photo');
+        const imagePreview = document.getElementById('image-preview');
+        
+        photoInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Generowanie opisu na podstawie imienia lub zdjęcia
+        function generateDescription(method) {
+            // Pokaż ładowanie
+            document.getElementById('loading').style.display = 'block';
+            
+            // Symulacja przetwarzania AI (w prawdziwej aplikacji tutaj byłoby API call)
+            setTimeout(() => {
+                let userName = '';
+                
+                if (method === 'name') {
+                    userName = document.getElementById('user-name').value.trim();
+                    if (!userName) {
+                        alert('Proszę wpisać imię lub nick!');
+                        document.getElementById('loading').style.display = 'none';
+                        return;
+                    }
+                } else {
+                    const photoFile = document.getElementById('user-photo').files[0];
+                    if (!photoFile) {
+                        alert('Proszę wybrać zdjęcie!');
+                        document.getElementById('loading').style.display = 'none';
+                        return;
+                    }
+                    userName = "osoba ze zdjęcia";
+                }
+                
+                // Wybierz losowe elementy z każdej kategorii
+                const randomPersonality = personalities[Math.floor(Math.random() * personalities.length)];
+                const randomWorld = fictionalWorlds[Math.floor(Math.random() * fictionalWorlds.length)];
+                const randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+                
+                // Generowanie wyniku
+                const resultContent = `
+                    <p>Cześć ${userName}! Jestem AI i tak Cię widzę:</p>
+                    
+                    <p class="category">📊 Twoja osobowość według AI:</p>
+                    <p>${randomPersonality}</p>
+                    
+                    <p class="category">🌍 Świat fikcyjny, do którego należysz:</p>
+                    <p>${randomWorld}</p>
+                    
+                    <p class="category">🎯 Fun-fact o Tobie według AI:</p>
+                    <p>${randomFunFact}</p>
+                    
+                    <p style="margin-top: 2rem; font-style: italic;">* Ta analiza jest całkowicie przypadkowa i stworzona dla rozrywki. AI tak naprawdę nie może określić Twojej osobowości na podstawie imienia czy zdjęcia. Ale zabawnie byłoby, gdyby mogła, prawda? 😉</p>
+                `;
+                
+                // Wyświetl wynik
+                document.getElementById('result-content').innerHTML = resultContent;
+                document.getElementById('result-section').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+                
+                // Przewiń do wyniku
+                document.getElementById('result-section').scrollIntoView({behavior: 'smooth'});
+            }, 1500); // Symulacja czasu przetwarzania
+        }
+    </script>
 </body>
 </html>
